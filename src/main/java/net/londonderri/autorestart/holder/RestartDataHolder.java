@@ -2,6 +2,7 @@ package net.londonderri.autorestart.holder;
 
 import net.londonderri.autorestart.AutoRestart;
 import net.londonderri.autorestart.config.Config;
+import net.minecraft.network.message.MessageType;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -41,7 +42,7 @@ public class RestartDataHolder {
     private void tryCountdown(MinecraftServer server, long ms) {
         if (ms > countdown) {
             if (ms - lastCountdownBroadcast >= 1000) {
-                server.getPlayerManager().broadcast(Text.literal(String.format(countdownMessage, (restartTime - ms) / 1000).replace(String.format(countdownMessage, 0), disconnectMessage)).formatted(Formatting.YELLOW), false);
+                server.getPlayerManager().broadcast(Text.literal(String.format(countdownMessage, (restartTime - ms) / 1000).replace(String.format(countdownMessage, 0), disconnectMessage)).formatted(Formatting.YELLOW), MessageType.CHAT);
                 lastCountdownBroadcast = ms;
             }
         }

@@ -3,6 +3,7 @@ package net.londonderri.autorestart.init;
 import com.mojang.brigadier.CommandDispatcher;
 import net.londonderri.autorestart.AutoRestart;
 import net.londonderri.autorestart.config.Config;
+import net.minecraft.network.message.MessageType;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
@@ -43,8 +44,8 @@ public class Commands {
         double percent = (double) memoryUsed / memoryMax * 100;
         int memoryUsedPercent = Math.toIntExact(Math.round(percent));
 
-        commandSource.getServer().getPlayerManager().broadcast(Text.literal(String.format(config.tpsInfo, tps, mspt)), false);
-        commandSource.getServer().getPlayerManager().broadcast(Text.literal(String.format(config.memoryInfo, memoryUsed, memoryMax, memoryUsedPercent)), false);
+        commandSource.getServer().getPlayerManager().broadcast(Text.literal(String.format(config.tpsInfo, tps, mspt)), MessageType.CHAT);
+        commandSource.getServer().getPlayerManager().broadcast(Text.literal(String.format(config.memoryInfo, memoryUsed, memoryMax, memoryUsedPercent)), MessageType.CHAT);
         return 0;
     }
 
@@ -73,9 +74,9 @@ public class Commands {
 
     private static int getTimeUntilRestart(ServerCommandSource commandSource) {
         if (AutoRestart.dataHolder != null) {
-            commandSource.getServer().getPlayerManager().broadcast(Text.literal("The next server reboot will be at " + LocalDateTime.ofEpochSecond(AutoRestart.dataHolder.getRestartTime() / 1000, 0, OffsetDateTime.now().getOffset()).format(DateTimeFormatter.ofPattern("HH:mm"))), false);
+            commandSource.getServer().getPlayerManager().broadcast(Text.literal("The next server reboot will be at " + LocalDateTime.ofEpochSecond(AutoRestart.dataHolder.getRestartTime() / 1000, 0, OffsetDateTime.now().getOffset()).format(DateTimeFormatter.ofPattern("HH:mm"))), MessageType.CHAT);
         } else {
-            commandSource.getServer().getPlayerManager().broadcast(Text.literal("Server autoreboot disabled"), false);
+            commandSource.getServer().getPlayerManager().broadcast(Text.literal("Server autoreboot disabled"), MessageType.CHAT);
         }
 
         return 0;

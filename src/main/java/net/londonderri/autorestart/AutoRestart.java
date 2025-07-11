@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.londonderri.autorestart.config.ConfigManager;
 import net.londonderri.autorestart.holder.RestartDataHolder;
 import net.londonderri.autorestart.init.Commands;
+import net.minecraft.network.message.MessageType;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
@@ -55,10 +56,10 @@ public class AutoRestart implements DedicatedServerModInitializer {
 				ConfigManager configManager = new ConfigManager();
 				configManager.loadConfig().setup(minecraftServer);
 				MutableText loaded = Text.literal("[").append(Text.literal("AutoRestart").formatted(Formatting.LIGHT_PURPLE).append(Text.literal("]").formatted(Formatting.WHITE)).append(Text.literal(" Successfully reloaded the configuration!").formatted(Formatting.GREEN)));
-				minecraftServer.getPlayerManager().broadcast(loaded, false);
+				minecraftServer.getPlayerManager().broadcast(loaded, MessageType.CHAT);
 			} catch (Exception e) {
 				MutableText failed = Text.literal("[").append(Text.literal("AutoRestart").formatted(Formatting.LIGHT_PURPLE).append(Text.literal("]").formatted(Formatting.WHITE)).append(Text.literal(" Failed to reboot the configuration!").formatted(Formatting.RED)));
-				minecraftServer.getPlayerManager().broadcast(failed, false);
+				minecraftServer.getPlayerManager().broadcast(failed, MessageType.CHAT);
 				LOGGER.error("It is not possible to restart the configuration file: " + e.getMessage());
 			}
 		});
