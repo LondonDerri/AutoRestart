@@ -3,11 +3,12 @@ package net.londonderri.autorestart.init;
 import com.mojang.brigadier.CommandDispatcher;
 import net.londonderri.autorestart.AutoRestart;
 import net.londonderri.autorestart.config.Config;
-import net.minecraft.network.message.MessageType;
+import net.minecraft.network.MessageType;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.Text;
+import net.minecraft.text.LiteralText;
+import net.minecraft.util.Util;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryUsage;
@@ -44,8 +45,8 @@ public class Commands {
         double percent = (double) memoryUsed / memoryMax * 100;
         int memoryUsedPercent = Math.toIntExact(Math.round(percent));
 
-        commandSource.getServer().getPlayerManager().broadcast(Text.literal(String.format(config.tpsInfo, tps, mspt)), MessageType.CHAT);
-        commandSource.getServer().getPlayerManager().broadcast(Text.literal(String.format(config.memoryInfo, memoryUsed, memoryMax, memoryUsedPercent)), MessageType.CHAT);
+        commandSource.getServer().getPlayerManager().broadcast(new LiteralText(String.format(config.tpsInfo, tps, mspt)), MessageType.CHAT, Util.NIL_UUID);
+        commandSource.getServer().getPlayerManager().broadcast(new LiteralText(String.format(config.memoryInfo, memoryUsed, memoryMax, memoryUsedPercent)), MessageType.CHAT, Util.NIL_UUID);
         return 0;
     }
 
@@ -74,9 +75,9 @@ public class Commands {
 
     private static int getTimeUntilRestart(ServerCommandSource commandSource) {
         if (AutoRestart.dataHolder != null) {
-            commandSource.getServer().getPlayerManager().broadcast(Text.literal("The next server reboot will be at " + LocalDateTime.ofEpochSecond(AutoRestart.dataHolder.getRestartTime() / 1000, 0, OffsetDateTime.now().getOffset()).format(DateTimeFormatter.ofPattern("HH:mm"))), MessageType.CHAT);
+            commandSource.getServer().getPlayerManager().broadcast(new LiteralText("The next server reboot will be at " + LocalDateTime.ofEpochSecond(AutoRestart.dataHolder.getRestartTime() / 1000, 0, OffsetDateTime.now().getOffset()).format(DateTimeFormatter.ofPattern("HH:mm"))), MessageType.CHAT, Util.NIL_UUID);
         } else {
-            commandSource.getServer().getPlayerManager().broadcast(Text.literal("Server autoreboot disabled"), MessageType.CHAT);
+            commandSource.getServer().getPlayerManager().broadcast(new LiteralText("Server autoreboot disabled"), MessageType.CHAT, Util.NIL_UUID);
         }
 
         return 0;

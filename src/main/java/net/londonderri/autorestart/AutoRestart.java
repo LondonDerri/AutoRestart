@@ -3,17 +3,18 @@ package net.londonderri.autorestart;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import net.fabricmc.api.DedicatedServerModInitializer;
 
-import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.londonderri.autorestart.config.ConfigManager;
 import net.londonderri.autorestart.holder.RestartDataHolder;
 import net.londonderri.autorestart.init.Commands;
-import net.minecraft.network.message.MessageType;
+import net.minecraft.network.MessageType;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.text.LiteralText;
 import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,11 +56,11 @@ public class AutoRestart implements DedicatedServerModInitializer {
 			try {
 				ConfigManager configManager = new ConfigManager();
 				configManager.loadConfig().setup(minecraftServer);
-				MutableText loaded = Text.literal("[").append(Text.literal("AutoRestart").formatted(Formatting.LIGHT_PURPLE).append(Text.literal("]").formatted(Formatting.WHITE)).append(Text.literal(" Successfully reloaded the configuration!").formatted(Formatting.GREEN)));
-				minecraftServer.getPlayerManager().broadcast(loaded, MessageType.CHAT);
+				MutableText loaded = new LiteralText("[").append(new LiteralText("AutoRestart").formatted(Formatting.LIGHT_PURPLE).append(new LiteralText("]").formatted(Formatting.WHITE)).append(new LiteralText(" Successfully reloaded the configuration!").formatted(Formatting.GREEN)));
+				minecraftServer.getPlayerManager().broadcast(loaded, MessageType.CHAT, Util.NIL_UUID);
 			} catch (Exception e) {
-				MutableText failed = Text.literal("[").append(Text.literal("AutoRestart").formatted(Formatting.LIGHT_PURPLE).append(Text.literal("]").formatted(Formatting.WHITE)).append(Text.literal(" Failed to reboot the configuration!").formatted(Formatting.RED)));
-				minecraftServer.getPlayerManager().broadcast(failed, MessageType.CHAT);
+				MutableText failed = new LiteralText("[").append(new LiteralText("AutoRestart").formatted(Formatting.LIGHT_PURPLE).append(new LiteralText("]").formatted(Formatting.WHITE)).append(new LiteralText(" Failed to reboot the configuration!").formatted(Formatting.RED)));
+				minecraftServer.getPlayerManager().broadcast(failed, MessageType.CHAT, Util.NIL_UUID);
 				LOGGER.error("It is not possible to restart the configuration file: " + e.getMessage());
 			}
 		});
@@ -69,7 +70,7 @@ public class AutoRestart implements DedicatedServerModInitializer {
 
 		ServerTickEvents.END_SERVER_TICK.register(Commands::onServerTick);
 
-		CommandRegistrationCallback.EVENT.register(((commandDispatcher, commandRegistryAccess, registrationEnvironment) ->
+		CommandRegistrationCallback.EVENT.register(((commandDispatcher, b) ->
 				Commands.register(commandDispatcher)));
 	}
 

@@ -1,8 +1,9 @@
 package net.londonderri.autorestart.holder;
 
-import net.minecraft.network.message.MessageType;
+import net.minecraft.network.MessageType;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.text.Text;
+import net.minecraft.text.LiteralText;
+import net.minecraft.util.Util;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +23,7 @@ public class MessagesDataHolder {
 
     public void setNextMessage(MinecraftServer server, long currentMillis) {
         if (!isDisableMessages && currentMillis > nextMessage) {
-            server.getPlayerManager().broadcast(Text.literal(messages.get(nextMessage)), MessageType.CHAT);
+            server.getPlayerManager().broadcast(new LiteralText(messages.get(nextMessage)), MessageType.CHAT, Util.NIL_UUID);
             int pos = position + 1;
             if (pos < messages.size()) {
                 nextMessage = timeRestart.get(pos);
