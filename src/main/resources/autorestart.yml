@@ -1,0 +1,26 @@
+# Number of seconds after which the server will be restarted, counting from closing
+countdown: 15
+# If the value is true, the automatic server restart script will run
+isEnableScript: true
+# Time after which the server will be automatically restarted
+timeRestart:
+  - "00:00"
+  - "12:00"
+# Warnings reporting reboot, 1 minute = 60
+messages:
+  600: "The server will reboot in 10 minutes"
+  300: "The server will reboot in 5 minutes"
+  180: "The server will reboot in 3 minutes"
+  60: "The server will reboot in 1 minute"
+# The name of the autorun file, which must be located in the root folder of the server
+# Keep in mind if you have a Windows operating system - “.bat”, if Linux - “.sh”
+pathToScript: "restart.bat"
+# Report-back messages before restart in seconds
+countdownMessage: "The server will restart in %s seconds"
+# The message that appears when you enter the /restart-scheduler command
+restartScheduler: "The next server reboot will be at"
+# Message before restarting the server
+disconnectMessage: "The server is rebooting, please wait a couple of minutes..."
+# The message that is displayed when entering the /tps command
+tpsInfo: "§eTPS: §a%.1f§f | §eMSPT: §a%.3f§e ms"
+memoryInfo: "§eRAM: §a%dMB §f/ §a%dMB §7(%d%%)"

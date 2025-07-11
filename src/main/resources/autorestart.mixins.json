@@ -1,0 +1,15 @@
+{
+	"required": true,
+	"package": "net.londonderri.autorestart.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+		"MinecraftServerMixins",
+		"StopCommandMixins"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}

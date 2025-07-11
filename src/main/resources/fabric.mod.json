@@ -1,0 +1,37 @@
+{
+	"schemaVersion": 1,
+	"id": "autorestart",
+	"version": "${version}",
+	"name": "AutoRestart",
+	"description": "This is a northern mod that adds server restarting by both command and scheduling.",
+	"authors": [
+		"LondonDerri"
+	],
+	"contact": {
+		"homepage": "https://www.curseforge.com/minecraft/mc-mods/autorestart",
+		"sources": "https://github.com/LondonDerri/AutoRestart"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/autorestart/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"server": [
+			"net.londonderri.autorestart.AutoRestart"
+		],
+		"client": [
+			"net.londonderri.autorestart.AutoRestartClient"
+		]
+	},
+	"mixins": [
+		"autorestart.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.14",
+		"minecraft": "~1.21",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
