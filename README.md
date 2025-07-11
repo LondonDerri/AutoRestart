@@ -3,7 +3,7 @@
 ![icon.png](src/main/resources/assets/autorestart/icon.png)
 # AutoRestart
 
-[![fabric](https://img.shields.io/badge/fabric-1.19--1.21-6161ff?&style=for-the-badge)](https://www.curseforge.com/minecraft/mc-mods/autorestart/files/all) [![Install on](https://img.shields.io/badge/install%20on-server-6161ff?&style=for-the-badge)](https://www.curseforge.com/minecraft/mc-mods/autorestart/files/all)
+[![fabric](https://img.shields.io/badge/fabric-1.18--1.21-6161ff?&style=for-the-badge)](https://www.curseforge.com/minecraft/mc-mods/autorestart/files/all) [![Install on](https://img.shields.io/badge/install%20on-server-6161ff?&style=for-the-badge)](https://www.curseforge.com/minecraft/mc-mods/autorestart/files/all)
 
 </div>
 
